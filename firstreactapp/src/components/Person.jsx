@@ -12,13 +12,15 @@
 
 import React from 'react';
 
-const Person = ({ firstname, lastname, age }) => {
+const Person = ({ firstname, lastname, age, children }) => {
     return (
         <div>
             <p>{`${firstname} ${lastname}`}</p>
             {/* <hr /> */}
             {/* <p>Age: {Math.floor(Math.random() * 30)}</p> */}
-            <p>{`${age}`}</p>
+            <p>Age: {age}</p>
+            {/* props.children */}
+            <p>{children}</p>
         </div>
     )
 }

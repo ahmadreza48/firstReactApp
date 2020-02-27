@@ -11,47 +11,56 @@ class App extends React.Component {
 
   constructor() {
     super();
-    this.state = {
+
+    // this.handlePersonChange = this.handlePersonChange.bind(this);
+
+    // this.state = {
+    //   persons: [
+    //     { firstname: "ahmad", lastname: "saeidi", age: "24" },
+    //     { firstname: "leila", lastname: "saeidi", age: "31" },
+    //     { firstname: "sadegh", lastname: "mahmoodian", age: "39" }
+    //   ]
+    // };
+  }
+
+  state = {
       persons: [
         { firstname: "ahmad", lastname: "saeidi", age: "24" },
         { firstname: "leila", lastname: "saeidi", age: "31" },
         { firstname: "sadegh", lastname: "mahmoodian", age: "39" }
       ]
     };
-  }
+
+  handlePersonChange = () => {
+    this.setState({
+      persons: [
+        { firstname: "peter", lastname: "saeidi", age: "24" },
+        { firstname: "john", lastname: "saeidi", age: "31" },
+        { firstname: "adam", lastname: "mahmoodian", age: "39" }
+      ]
+    });
+  };
+
   render() {
-    const {persons} = this.state;
+    const { persons } = this.state;
     return (
       <div className="App">
         <h1>Hello World!</h1>
         <hr />
         {/* <Person firstname="ahmad" lastname="saeidi" age="24" /> */}
-        {/* <Person
-        firstname={this.state.persons[0].firstname}
-        lastname={this.state.persons[0].lastname}
-        age={this.state.persons[0].age}
-        />
 
-        <Person
-        firstname={this.state.persons[1].firstname}
-        lastname={this.state.persons[1].lastname}
-        age={this.state.persons[1].age}
-        />
-
-        <Person
-        firstname={this.state.persons[2].firstname}
-        lastname={this.state.persons[2].lastname}
-        age={this.state.persons[2].age}
-        /> */}
-        {
-          persons.map(person => (
-            <Person 
+        {persons.map(person => (
+          <Person
             firstname={person.firstname}
             lastname={person.lastname}
             age={person.age}
-            />
-          ))
-        }
+          >
+            topLearn
+          </Person>
+        ))}
+
+        <hr />
+        <button onClick={this.handlePersonChange}>change firstName</button>
       </div>
     );
   }
