@@ -16,7 +16,7 @@ const Person = ({ firstname, lastname, age }) => {
     return (
         <div>
             <p>{`${firstname} ${lastname}`}</p>
-            <hr />
+            {/* <hr /> */}
             {/* <p>Age: {Math.floor(Math.random() * 30)}</p> */}
             <p>{`${age}`}</p>
         </div>
