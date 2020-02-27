@@ -27,7 +27,7 @@ const App = () => {
     <div className="App">
       <h1>Hello World!</h1>
       <hr />
-      <Person />
+      <Person firstname="ahmad" lastname="saeidi" age="24"/>
     </div>
   );
 };

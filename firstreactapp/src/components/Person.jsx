@@ -6,15 +6,20 @@
 //         return (<p>ahmadreza saeidi</p>);
 //     }
 // }
- 
+
 // export default Person;
 
 
 import React from 'react';
 
-const Person = () => {
-    return(
-        <p>ahmadreza saeidi</p>
+const Person = ({ firstname, lastname, age }) => {
+    return (
+        <div>
+            <p>{`${firstname} ${lastname}`}</p>
+            <hr />
+            {/* <p>Age: {Math.floor(Math.random() * 30)}</p> */}
+            <p>{`${age}`}</p>
+        </div>
     )
 }
 
