@@ -1,8 +1,8 @@
 import React from 'react';
 
-const person = ({firstname, lastname, age}) => {
+const person = ({firstname, lastname}) => {
     return ( <div>
-        <p>{`${firstname} ${lastname} ${age} سال دارم`}</p>
+        <p>{`${firstname} ${lastname}`}</p>
     </div> );
 }
  
