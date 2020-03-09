@@ -3,11 +3,8 @@ import Persons from "./components/person/Persons";
 
 class App extends Component {
   state = {
-    persons: [
-      { id: 1, firstname: "یونس", lastname: "قربانی" },
-      { id: 2, firstname: "ایمان", lastname: "مدائنی" },
-      { id: 3, firstname: "سجاد", lastname: "باقرزاده" }
-    ],
+    persons: [],
+    person: '',
     showPersons: false
   };
 
@@ -21,6 +18,36 @@ class App extends Component {
     const filteredPersons = persons.filter(p => p.id !== id);
     this.setState({ persons: filteredPersons });
   };
+
+  handleNameChange = (event, id) => {
+    const { persons: allPersons } = this.state;
+
+    const personIndex = allPersons.findIndex(p => p.id === id);
+    const person = allPersons[personIndex];
+    person.fullname = event.target.value;
+    console.log(event.target);
+
+    const persons = [...allPersons];
+    persons[personIndex] = person;
+    allPersons[personIndex] = person;
+    this.setState({ persons });
+    //this.setState({persons: allPersons});
+    //if key and value are not same
+  };
+
+  handleNewPerson= () => {
+    const persons = [...this.state.persons];
+    const person = {
+      id : Math.floor(Math.random()*1000),
+      fullname : this.state.person
+    }
+    persons.push(person);
+    this.setState({persons, person: ""});
+  };
+
+  setPerson = event => {
+    this.setState({person: event.target.value});
+  }
 
   render() {
     const { persons, showPersons } = this.state;
@@ -39,7 +66,11 @@ class App extends Component {
 
     if (showPersons) {
       person = (
-        <Persons persons={persons} personDelete={this.handleDeletePerson} />
+        <Persons
+          persons={persons}
+          personDelete={this.handleDeletePerson}
+          personChange={this.handleNameChange}
+        />
       );
     }
 
@@ -48,11 +79,23 @@ class App extends Component {
       <div style={styles}>
         <h2>مدیریت کننده اشخاص</h2>
         <h4>.تعداد اشخاص {persons.length} نفر میباشد</h4>
-        {person}
+
+        <div>
+          <input
+            type="text"
+            placeholder="ساخت شخص جدید"
+            style={{ direction: "rtl" }}
+            onChange={this.setPerson}
+            value={this.state.person}
+          ></input>
+          <button onClick={this.handleNewPerson}>اضافه کن</button>
+        </div>
+
         <button onClick={this.handleShowPerson} style={buttonStyle}>
           {" "}
           نمایش اشخاص
         </button>
+        {person}
       </div>
     );
   }
