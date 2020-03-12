@@ -91,9 +91,7 @@ class App extends Component {
           <button onClick={this.handleNewPerson}>اضافه کن</button>
         </div>
 
-        <button onClick={this.handleShowPerson} style={buttonStyle}>
-          {" "}
-          نمایش اشخاص
+        <button onClick={this.handleShowPerson} className="btn btn-sm btn-success fa fa-plus-square">
         </button>
         {person}
       </div>
