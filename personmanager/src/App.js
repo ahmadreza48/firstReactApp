@@ -4,8 +4,8 @@ import Persons from "./components/person/Persons";
 class App extends Component {
   state = {
     persons: [],
-    person: '',
-    showPersons: false
+    person: "",
+    showPersons: true
   };
 
   handleShowPerson = () => {
@@ -35,32 +35,32 @@ class App extends Component {
     //if key and value are not same
   };
 
-  handleNewPerson= () => {
+  handleNewPerson = () => {
     const persons = [...this.state.persons];
     const person = {
-      id : Math.floor(Math.random()*1000),
-      fullname : this.state.person
-    }
+      id: Math.floor(Math.random() * 1000),
+      fullname: this.state.person
+    };
     persons.push(person);
-    this.setState({persons, person: ""});
+    this.setState({ persons, person: "" });
   };
 
   setPerson = event => {
-    this.setState({person: event.target.value});
-  }
+    this.setState({ person: event.target.value });
+  };
 
   render() {
     const { persons, showPersons } = this.state;
 
-    const styles = {
-      textAlign: "center"
-    };
+    // const styles = {
+    //   textAlign: "center"
+    // };
 
-    const buttonStyle = {
-      padding: "1em",
-      fontFamiliy: "BYekan",
-      backgroundColor: "pink"
-    };
+    // const buttonStyle = {
+    //   padding: "1em",
+    //   fontFamiliy: "BYekan",
+    //   backgroundColor: "pink"
+    // };
 
     let person = null;
 
@@ -76,22 +76,44 @@ class App extends Component {
 
     return (
       // <div style={{textAlign: 'center'}}>
-      <div style={styles}>
-        <h2>مدیریت کننده اشخاص</h2>
-        <h4>.تعداد اشخاص {persons.length} نفر میباشد</h4>
+      <div className="rtl text-center">
+        <div className="alert alert-info">
+          <h2>مدیریت کننده اشخاص</h2>
+        </div>
+        <h5 className="alert alert-light">
+          .تعداد اشخاص{" "}
+          <span className="badge badge-pill badge-success">
+            {persons.length}
+          </span>{" "}
+          نفر میباشد
+        </h5>
 
-        <div>
-          <input
-            type="text"
-            placeholder="ساخت شخص جدید"
-            style={{ direction: "rtl" }}
-            onChange={this.setPerson}
-            value={this.state.person}
-          ></input>
-          <button onClick={this.handleNewPerson}>اضافه کن</button>
+        <div className="m-2 p-2">
+          <form
+            className="form-inline justify-content-center"
+            onSubmit={event => event.preventDefault()}
+          >
+            <div className="input-group w-25">
+              <input
+                type="text"
+                placeholder="اسم بهم بده"
+                className="form-control"
+                onChange={this.setPerson}
+                value={this.state.person}
+              ></input>
+              <div className="input-group-prepend">
+                <button
+                  type="submit"
+                  className="btn btn-sm btn-success fa fa-plus-square"
+                  onClick={this.handleNewPerson}
+                />
+              </div>
+            </div>
+          </form>
         </div>
 
-        <button onClick={this.handleShowPerson} className="btn btn-sm btn-success fa fa-plus-square">
+        <button onClick={this.handleShowPerson} className="btn btn-info">
+          نمایش اشخاص
         </button>
         {person}
       </div>
