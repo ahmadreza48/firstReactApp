@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import {Alert, Button, Badge} from 'react-bootstrap'
+
 import Persons from "./components/person/Persons";
 
 class App extends Component {
@@ -41,8 +43,10 @@ class App extends Component {
       id: Math.floor(Math.random() * 1000),
       fullname: this.state.person
     };
-    persons.push(person);
-    this.setState({ persons, person: "" });
+    if (person.fullname !== "" && person.fullname !== " ") {
+      persons.push(person);
+      this.setState({ persons, person: "" });
+    }
   };
 
   setPerson = event => {
@@ -64,6 +68,11 @@ class App extends Component {
 
     let person = null;
 
+    let badgeStyle = [];
+    if (persons.length >= 3) badgeStyle.push("badge-success");
+    if (persons.length <= 2) badgeStyle.push("badge-warning");
+    if (persons.length <= 1) badgeStyle.push("badge-danger");
+
     if (showPersons) {
       person = (
         <Persons
@@ -82,7 +91,7 @@ class App extends Component {
         </div>
         <h5 className="alert alert-light">
           .تعداد اشخاص{" "}
-          <span className="badge badge-pill badge-success">
+          <span className={`badge badge-pill ${badgeStyle.join(" ")}`}>
             {persons.length}
           </span>{" "}
           نفر میباشد
@@ -112,7 +121,10 @@ class App extends Component {
           </form>
         </div>
 
-        <button onClick={this.handleShowPerson} className="btn btn-info">
+        <button
+          onClick={this.handleShowPerson}
+          className={showPersons ? "btn btn-info" : "btn btn-danger"}
+        >
           نمایش اشخاص
         </button>
         {person}
