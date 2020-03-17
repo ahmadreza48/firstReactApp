@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Alert, Button, Badge} from 'react-bootstrap'
+import { Alert, Button, Badge } from "react-bootstrap";
 
 import Persons from "./components/person/Persons";
 
@@ -68,10 +68,15 @@ class App extends Component {
 
     let person = null;
 
-    let badgeStyle = [];
-    if (persons.length >= 3) badgeStyle.push("badge-success");
-    if (persons.length <= 2) badgeStyle.push("badge-warning");
-    if (persons.length <= 1) badgeStyle.push("badge-danger");
+    // let badgeStyle = [];
+    // if (persons.length >= 3) badgeStyle.push("badge-success");
+    // if (persons.length <= 2) badgeStyle.push("badge-warning");
+    // if (persons.length <= 1) badgeStyle.push("badge-danger");
+
+    let badgeStyle = "";
+    if (persons.length >= 3) badgeStyle = "success";
+    if (persons.length <= 2) badgeStyle = "warning";
+    if (persons.length <= 1) badgeStyle = "danger";
 
     if (showPersons) {
       person = (
@@ -86,16 +91,24 @@ class App extends Component {
     return (
       // <div style={{textAlign: 'center'}}>
       <div className="rtl text-center">
-        <div className="alert alert-info">
+        <Alert variant="info">
           <h2>مدیریت کننده اشخاص</h2>
-        </div>
-        <h5 className="alert alert-light">
+        </Alert>
+
+        {/* <div className="alert alert-info">
+          <h2>مدیریت کننده اشخاص</h2>
+        </div> */}
+
+        <Alert variant="light">
           .تعداد اشخاص{" "}
-          <span className={`badge badge-pill ${badgeStyle.join(" ")}`}>
+          {/* <span className={`badge badge-pill ${badgeStyle.join(" ")}`}>
             {persons.length}
-          </span>{" "}
+          </span>{" "} */}
+          <Badge pill variant={badgeStyle}>
+            {persons.length}
+          </Badge>
           نفر میباشد
-        </h5>
+        </Alert>
 
         <div className="m-2 p-2">
           <form
@@ -111,9 +124,12 @@ class App extends Component {
                 value={this.state.person}
               ></input>
               <div className="input-group-prepend">
-                <button
+                <Button
                   type="submit"
-                  className="btn btn-sm btn-success fa fa-plus-square"
+                  // className="btn btn-sm btn-success fa fa-plus-square"
+                  variant="success"
+                  size="sm"
+                  className="fa fa-plus-square"
                   onClick={this.handleNewPerson}
                 />
               </div>
@@ -121,12 +137,13 @@ class App extends Component {
           </form>
         </div>
 
-        <button
+        <Button
           onClick={this.handleShowPerson}
-          className={showPersons ? "btn btn-info" : "btn btn-danger"}
+          // className={showPersons ? "btn btn-info" : "btn btn-danger"}
+          variant={showPersons ? "info" : "danger"}
         >
           نمایش اشخاص
-        </button>
+        </Button>
         {person}
       </div>
     );
