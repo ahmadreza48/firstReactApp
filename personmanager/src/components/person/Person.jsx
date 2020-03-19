@@ -1,4 +1,5 @@
 import React from 'react';
+// import {toast} from 'react-toastify';
 // import './Person.css';
 
 const person = ({ fullname, deleted, changed }) => {

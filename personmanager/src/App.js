@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Alert, Button, Badge } from "react-bootstrap";
+import {ToastContainer, toast} from 'react-toastify'
 
 import Persons from "./components/person/Persons";
 
@@ -19,6 +20,14 @@ class App extends Component {
     const persons = [...this.state.persons];
     const filteredPersons = persons.filter(p => p.id !== id);
     this.setState({ persons: filteredPersons });
+
+    const personIndex = persons.findIndex(p => p.id === id);
+    const person = persons[personIndex];
+    
+    toast.error(`${person.fullname} با موفقیت حذف شد`,{
+      position: 'top-right',
+      closeOnClick: true
+    })
   };
 
   handleNameChange = (event, id) => {
@@ -46,6 +55,13 @@ class App extends Component {
     if (person.fullname !== "" && person.fullname !== " ") {
       persons.push(person);
       this.setState({ persons, person: "" });
+
+      toast.success("شخص با موفقیت اضافه شد.",{
+          position: "bottom-right",
+          closeButton: true,
+          closeOnClick: true
+      }
+      )
     }
   };
 
@@ -145,6 +161,7 @@ class App extends Component {
           نمایش اشخاص
         </Button>
         {person}
+        <ToastContainer />
       </div>
     );
   }
