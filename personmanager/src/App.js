@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Alert, Button, Badge } from "react-bootstrap";
-import {ToastContainer, toast} from 'react-toastify'
+import {Button} from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
 
 import Persons from "./components/person/Persons";
+import Header from "./components/common/Header";
 
 class App extends Component {
   state = {
@@ -23,11 +24,11 @@ class App extends Component {
 
     const personIndex = persons.findIndex(p => p.id === id);
     const person = persons[personIndex];
-    
-    toast.error(`${person.fullname} با موفقیت حذف شد`,{
-      position: 'top-right',
+
+    toast.error(`${person.fullname} با موفقیت حذف شد`, {
+      position: "top-right",
       closeOnClick: true
-    })
+    });
   };
 
   handleNameChange = (event, id) => {
@@ -56,12 +57,11 @@ class App extends Component {
       persons.push(person);
       this.setState({ persons, person: "" });
 
-      toast.success("شخص با موفقیت اضافه شد.",{
-          position: "bottom-right",
-          closeButton: true,
-          closeOnClick: true
-      }
-      )
+      toast.success("شخص با موفقیت اضافه شد.", {
+        position: "bottom-right",
+        closeButton: true,
+        closeOnClick: true
+      });
     }
   };
 
@@ -89,10 +89,7 @@ class App extends Component {
     // if (persons.length <= 2) badgeStyle.push("badge-warning");
     // if (persons.length <= 1) badgeStyle.push("badge-danger");
 
-    let badgeStyle = "";
-    if (persons.length >= 3) badgeStyle = "success";
-    if (persons.length <= 2) badgeStyle = "warning";
-    if (persons.length <= 1) badgeStyle = "danger";
+    // badge style
 
     if (showPersons) {
       person = (
@@ -107,25 +104,7 @@ class App extends Component {
     return (
       // <div style={{textAlign: 'center'}}>
       <div className="rtl text-center">
-        <Alert variant="info">
-          <h2>مدیریت کننده اشخاص</h2>
-        </Alert>
-
-        {/* <div className="alert alert-info">
-          <h2>مدیریت کننده اشخاص</h2>
-        </div> */}
-
-        <Alert variant="light">
-          .تعداد اشخاص{" "}
-          {/* <span className={`badge badge-pill ${badgeStyle.join(" ")}`}>
-            {persons.length}
-          </span>{" "} */}
-          <Badge pill variant={badgeStyle}>
-            {persons.length}
-          </Badge>
-          نفر میباشد
-        </Alert>
-
+        <Header personsLenght={persons.length} appTitle={this.props.title}/>
         <div className="m-2 p-2">
           <form
             className="form-inline justify-content-center"
