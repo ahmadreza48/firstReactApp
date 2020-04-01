@@ -7,4 +7,4 @@ import "react-toastify/dist/ReactToastify.css"
 // import '../node_modules/font-awesome/css/font-awesome.min.css';
 
 
-render(<App title="مدیریت کننده اشخاص" />, document.getElementById("root"));
+render(<App />, document.getElementById("root"));
