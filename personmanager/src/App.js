@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Persons from "./components/person/Persons";
 import Header from "./components/common/Header";
 import SimpleContext from "./context/SimpleContext";
+import NewPerson from "./components/person/NewPerson";
 
 class App extends Component {
   state = {
@@ -13,6 +14,8 @@ class App extends Component {
     showPersons: true,
     appTitle: "مدیریت کننده اشخاص"
   };
+
+  static contextType = SimpleContext;
 
   handleShowPerson = () => {
     this.setState({ showPersons: !this.state.showPersons });
@@ -96,56 +99,30 @@ class App extends Component {
     if (showPersons) {
       person = (
         <Persons
-          persons={persons}
-          personDelete={this.handleDeletePerson}
-          personChange={this.handleNameChange}
+        // persons={persons}
+        // personDelete={this.handleDeletePerson}
+        // personChange={this.handleNameChange}
         />
       );
     }
 
     return (
-      <SimpleContext.Provider 
-      value={{
-        state: this.state,
-        handleDeletePerson: this.handleDeletePerson,
-        handleNameChange: this.handleNameChange,
-        handleNewPerson: this.handleNewPerson,
-        setPerson: this.setPerson
-      }}
+      <SimpleContext.Provider
+        value={{
+          state: this.state,
+          handleDeletePerson: this.handleDeletePerson,
+          handleNameChange: this.handleNameChange,
+          handleNewPerson: this.handleNewPerson,
+          setPerson: this.setPerson
+        }}
       >
         {/* <div style={{textAlign: 'center'}}> */}
         <div className="rtl text-center">
           <Header
-            // personsLenght={persons.length}
-            // appTitle={this.state.appTitle}
+          // personsLenght={persons.length}
+          // appTitle={this.state.appTitle}
           />
-          <div className="m-2 p-2">
-            <form
-              className="form-inline justify-content-center"
-              onSubmit={event => event.preventDefault()}
-            >
-              <div className="input-group w-25">
-                <input
-                  type="text"
-                  placeholder="اسم بهم بده"
-                  className="form-control"
-                  onChange={this.setPerson}
-                  value={this.state.person}
-                ></input>
-                <div className="input-group-prepend">
-                  <Button
-                    type="submit"
-                    // className="btn btn-sm btn-success fa fa-plus-square"
-                    variant="success"
-                    size="sm"
-                    className="fa fa-plus-square"
-                    onClick={this.handleNewPerson}
-                  />
-                </div>
-              </div>
-            </form>
-          </div>
-
+          <NewPerson />
           <Button
             onClick={this.handleShowPerson}
             // className={showPersons ? "btn btn-info" : "btn btn-danger"}

@@ -1,37 +1,42 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Alert, Badge } from 'react-bootstrap';
 import SimpleContext from '../../context/SimpleContext';
 
-const Header = ({ personsLenght }) => {
+const Header = () => {
+
+    const context = useContext(SimpleContext);
+    const { persons, appTitle } = context.state;
+
     let badgeStyle = "";
-    if (personsLenght >= 3) badgeStyle = "success";
-    if (personsLenght <= 2) badgeStyle = "warning";
-    if (personsLenght <= 1) badgeStyle = "danger";
+    if (persons.length >= 3) badgeStyle = "success";
+    if (persons.length <= 2) badgeStyle = "warning";
+    if (persons.length <= 1) badgeStyle = "danger";
 
     return (
-        <SimpleContext.Consumer>
-            {context => (
-                <div>
-                    <Alert variant="info">
-                        <h2>{context.state.appTitle}</h2>
-                    </Alert>
+        // <SimpleContext.Consumer>
+        // {context => (
+        <div>
+            <Alert variant="info">
+                <h2>{appTitle}</h2>
+            </Alert>
 
-                    <Alert variant="light">
-                        .تعداد اشخاص{" "}
-                        {/* <span className={`badge badge-pill ${badgeStyle.join(" ")}`}>
+            <Alert variant="light">
+                .تعداد اشخاص{" "}
+                {/* <span className={`badge badge-pill ${badgeStyle.join(" ")}`}>
                     {persons.length}
                      </span>{" "} */}
-                        <Badge pill variant={badgeStyle}>
-                            {context.state.persons.lenght}
-                        </Badge>
+
+                <Badge pill variant={badgeStyle}>
+                    {persons.length}
+                </Badge>{" "}
                     نفر میباشد
-                        </Alert>
-                </div>
+            </Alert>
+        </div>
 
-            )}
+        // )}
 
-        </SimpleContext.Consumer>
+        // </SimpleContext.Consumer >
     );
-}
+};
 
 export default Header;
