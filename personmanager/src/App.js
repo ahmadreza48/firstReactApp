@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -7,25 +7,30 @@ import Header from "./components/common/Header";
 import SimpleContext from "./context/SimpleContext";
 import NewPerson from "./components/person/NewPerson";
 
-class App extends Component {
-  state = {
-    persons: [],
-    person: "",
-    showPersons: true,
-    appTitle: "مدیریت کننده اشخاص"
-  };
+const App = () => {
+  // state = {
+  //   persons: [],
+  //   person: "",
+  //   showPersons: true,
+  //   appTitle: "مدیریت کننده اشخاص"
+  // };
 
-  static contextType = SimpleContext;
+  // const personState = useState({ persons: [] });
+  // const getPersons = personState[0];
+  // const setPersons = personState[1];
+  const [getPersons, setPersons] = useState([]);
+  const [getSinglePerson, setSinglePerson] = useState("");
+  const [getShowPersons, setShowPersons] = useState(true);
 
-  handleShowPerson = () => {
-    this.setState({ showPersons: !this.state.showPersons });
+  const handleShowPerson = () => {
+    setShowPersons(!getShowPersons);
     // console.log(this.state.showPersons);
   };
 
-  handleDeletePerson = id => {
-    const persons = [...this.state.persons];
+  const handleDeletePerson = id => {
+    const persons = [...getPersons];
     const filteredPersons = persons.filter(p => p.id !== id);
-    this.setState({ persons: filteredPersons });
+    setPersons(filteredPersons);
 
     const personIndex = persons.findIndex(p => p.id === id);
     const person = persons[personIndex];
@@ -36,8 +41,8 @@ class App extends Component {
     });
   };
 
-  handleNameChange = (event, id) => {
-    const { persons: allPersons } = this.state;
+  const handleNameChange = (event, id) => {
+    const { persons: allPersons } = getPersons;
 
     const personIndex = allPersons.findIndex(p => p.id === id);
     const person = allPersons[personIndex];
@@ -47,20 +52,22 @@ class App extends Component {
     const persons = [...allPersons];
     persons[personIndex] = person;
     allPersons[personIndex] = person;
-    this.setState({ persons });
+    setPersons(persons);
     //this.setState({persons: allPersons});
     //if key and value are not same
   };
 
-  handleNewPerson = () => {
-    const persons = [...this.state.persons];
+  const handleNewPerson = () => {
+    const persons = [...getPersons];
     const person = {
       id: Math.floor(Math.random() * 1000),
-      fullname: this.state.person
+      fullname: getSinglePerson
     };
     if (person.fullname !== "" && person.fullname !== " ") {
       persons.push(person);
-      this.setState({ persons, person: "" });
+      setPersons(persons);
+      setSinglePerson("");
+      // this.setState({ persons, person: "" });
 
       toast.success("شخص با موفقیت اضافه شد.", {
         position: "bottom-right",
@@ -70,72 +77,73 @@ class App extends Component {
     }
   };
 
-  setPerson = event => {
-    this.setState({ person: event.target.value });
+  const setPerson = event => {
+    setSinglePerson(event.target.value);
   };
 
-  render() {
-    const { persons, showPersons } = this.state;
+  // const { persons, showPersons } = this.state;
 
-    // const styles = {
-    //   textAlign: "center"
-    // };
+  // const styles = {
+  //   textAlign: "center"
+  // };
 
-    // const buttonStyle = {
-    //   padding: "1em",
-    //   fontFamiliy: "BYekan",
-    //   backgroundColor: "pink"
-    // };
+  // const buttonStyle = {
+  //   padding: "1em",
+  //   fontFamiliy: "BYekan",
+  //   backgroundColor: "pink"
+  // };
 
-    let person = null;
+  let person = null;
 
-    // let badgeStyle = [];
-    // if (persons.length >= 3) badgeStyle.push("badge-success");
-    // if (persons.length <= 2) badgeStyle.push("badge-warning");
-    // if (persons.length <= 1) badgeStyle.push("badge-danger");
+  // let badgeStyle = [];
+  // if (persons.length >= 3) badgeStyle.push("badge-success");
+  // if (persons.length <= 2) badgeStyle.push("badge-warning");
+  // if (persons.length <= 1) badgeStyle.push("badge-danger");
 
-    // badge style
+  // badge style
 
-    if (showPersons) {
-      person = (
-        <Persons
-        // persons={persons}
-        // personDelete={this.handleDeletePerson}
-        // personChange={this.handleNameChange}
-        />
-      );
-    }
-
-    return (
-      <SimpleContext.Provider
-        value={{
-          state: this.state,
-          handleDeletePerson: this.handleDeletePerson,
-          handleNameChange: this.handleNameChange,
-          handleNewPerson: this.handleNewPerson,
-          setPerson: this.setPerson
-        }}
-      >
-        {/* <div style={{textAlign: 'center'}}> */}
-        <div className="rtl text-center">
-          <Header
-          // personsLenght={persons.length}
-          // appTitle={this.state.appTitle}
-          />
-          <NewPerson />
-          <Button
-            onClick={this.handleShowPerson}
-            // className={showPersons ? "btn btn-info" : "btn btn-danger"}
-            variant={showPersons ? "info" : "danger"}
-          >
-            نمایش اشخاص
-          </Button>
-          {person}
-          <ToastContainer />
-        </div>
-      </SimpleContext.Provider>
+  if (getShowPersons) {
+    person = (
+      <Persons
+      // persons={persons}
+      // personDelete={this.handleDeletePerson}
+      // personChange={this.handleNameChange}
+      />
     );
   }
-}
+
+  return (
+    <SimpleContext.Provider
+      value={{
+        // state: this.state,
+        persons: getPersons,
+        person: getSinglePerson,
+        handleDeletePerson: handleDeletePerson,
+        handleNameChange: handleNameChange,
+        handleNewPerson: handleNewPerson,
+        setPerson: setPerson
+      }}
+    >
+      {/* <div style={{textAlign: 'center'}}> */}
+      <div className="rtl text-center">
+        <Header
+          appTitle="مدیریت کننده اشخاص"
+          // personsLenght={persons.length}
+          // appTitle={this.state.appTitle}
+        />
+        <NewPerson />
+        <Button
+          onClick={handleShowPerson}
+          // className={showPersons ? "btn btn-info" : "btn btn-danger"}
+          variant={getShowPersons ? "info" : "danger"}
+        >
+          نمایش اشخاص
+        </Button>
+        {person}
+        <ToastContainer />
+      </div>
+    </SimpleContext.Provider>
+  );
+};
 
 export default App;
