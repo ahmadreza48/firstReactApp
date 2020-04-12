@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
+import Radium from "radium";
 import { ToastContainer, toast } from "react-toastify";
 
 import Persons from "./components/person/Persons";
@@ -27,24 +28,24 @@ const App = () => {
     // console.log(this.state.showPersons);
   };
 
-  const handleDeletePerson = id => {
+  const handleDeletePerson = (id) => {
     const persons = [...getPersons];
-    const filteredPersons = persons.filter(p => p.id !== id);
+    const filteredPersons = persons.filter((p) => p.id !== id);
     setPersons(filteredPersons);
 
-    const personIndex = persons.findIndex(p => p.id === id);
+    const personIndex = persons.findIndex((p) => p.id === id);
     const person = persons[personIndex];
 
     toast.error(`${person.fullname} با موفقیت حذف شد`, {
       position: "top-right",
-      closeOnClick: true
+      closeOnClick: true,
     });
   };
 
   const handleNameChange = (event, id) => {
     const { persons: allPersons } = getPersons;
 
-    const personIndex = allPersons.findIndex(p => p.id === id);
+    const personIndex = allPersons.findIndex((p) => p.id === id);
     const person = allPersons[personIndex];
     person.fullname = event.target.value;
     console.log(event.target);
@@ -61,7 +62,7 @@ const App = () => {
     const persons = [...getPersons];
     const person = {
       id: Math.floor(Math.random() * 1000),
-      fullname: getSinglePerson
+      fullname: getSinglePerson,
     };
     if (person.fullname !== "" && person.fullname !== " ") {
       persons.push(person);
@@ -72,12 +73,12 @@ const App = () => {
       toast.success("شخص با موفقیت اضافه شد.", {
         position: "bottom-right",
         closeButton: true,
-        closeOnClick: true
+        closeOnClick: true,
       });
     }
   };
 
-  const setPerson = event => {
+  const setPerson = (event) => {
     setSinglePerson(event.target.value);
   };
 
@@ -102,6 +103,10 @@ const App = () => {
 
   // badge style
 
+  // const btnStyle = { ":hover": { color: "red", backgroundColor: "black" } };
+  // if
+  // btnStyle[":hover"] = { color: "red", backgroundColor: "black" };
+
   if (getShowPersons) {
     person = (
       <Persons
@@ -121,7 +126,7 @@ const App = () => {
         handleDeletePerson: handleDeletePerson,
         handleNameChange: handleNameChange,
         handleNewPerson: handleNewPerson,
-        setPerson: setPerson
+        setPerson: setPerson,
       }}
     >
       {/* <div style={{textAlign: 'center'}}> */}
@@ -132,13 +137,20 @@ const App = () => {
           // appTitle={this.state.appTitle}
         />
         <NewPerson />
-        <Button
+        {/* <Button
           onClick={handleShowPerson}
           // className={showPersons ? "btn btn-info" : "btn btn-danger"}
           variant={getShowPersons ? "info" : "danger"}
         >
-          نمایش اشخاص
+           نمایش اشخاص
         </Button>
+         */}
+        <button
+          onClick={handleShowPerson}
+          style={{ ":hover": { color: "red", backgroundColor: "black" } }}
+        >
+          نمایش اشخاص
+        </button>
         {person}
         <ToastContainer />
       </div>
@@ -146,4 +158,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Radium(App);
