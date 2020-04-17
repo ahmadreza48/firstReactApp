@@ -3,10 +3,10 @@ import { Button } from "react-bootstrap";
 import Radium from "radium";
 import { ToastContainer, toast } from "react-toastify";
 
-import Persons from "./components/person/Persons";
+import Persons from "./components/Person/Persons";
 import Header from "./components/common/Header";
 import SimpleContext from "./context/SimpleContext";
-import NewPerson from "./components/person/NewPerson";
+import NewPerson from "./components/Person/NewPerson";
 
 const App = () => {
   // state = {

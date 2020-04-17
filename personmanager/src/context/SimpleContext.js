@@ -2,7 +2,7 @@
 // import React from "react";
 // state 2:
 import { createContext } from "react";
-import Persons from "../components/person/Persons";
+import Persons from "../components/Person/Persons";
 
 // state 1: React.createContext()
 // state 2: createContext()
@@ -14,7 +14,7 @@ const SimpleContext = createContext({
   handleDeletePerson: () => {},
   handleNameChange: () => {},
   handleNewPerson: () => {},
-  setPerson: () => {}
+  setPerson: () => {},
 });
 
 export default SimpleContext;
