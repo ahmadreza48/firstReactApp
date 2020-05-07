@@ -1,11 +1,9 @@
 import React, { useContext } from "react";
-
-import SimpleContext from '../../context/SimpleContext';
 import { Button } from "react-bootstrap";
 
+import SimpleContext from "./../../context/SimpleContext";
 
 const NewPerson = () => {
-
     const context = useContext(SimpleContext);
 
     return (
@@ -21,11 +19,10 @@ const NewPerson = () => {
                         className="form-control"
                         onChange={context.setPerson}
                         value={context.person}
-                    ></input>
+                    />
                     <div className="input-group-prepend">
                         <Button
                             type="submit"
-                            // className="btn btn-sm btn-success fa fa-plus-square"
                             variant="success"
                             size="sm"
                             className="fa fa-plus-square"
@@ -35,8 +32,7 @@ const NewPerson = () => {
                 </div>
             </form>
         </div>
-
     );
-}
+};
 
 export default NewPerson;
