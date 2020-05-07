@@ -13,7 +13,7 @@ const App = () => {
   //   persons: [],
   //   person: "",
   //   showPersons: true,
-  //   appTitle: "مدیریت کننده اشخاص"
+  //   appTitle: " مدیریت کننده اشخاص"
   // };
 
   // const personState = useState({ persons: [] });
